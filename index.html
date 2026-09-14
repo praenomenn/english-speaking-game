@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking Game</title>
+<style>
+  :root {
+    --bg: #f5f7fb;
+    --panel: #ffffff;
+    --text: #172033;
+    --muted: #687386;
+    --red: #d92d20;
+    --green: #16803c;
+    --button: #2457d6;
+    --button-hover: #1d49b6;
+    --border: #d8deea;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .game {
+    width: min(1200px, 100%);
+    text-align: center;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 2px solid var(--border);
+    border-radius: 26px;
+    padding: 44px 24px;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .symbol {
+    font-size: clamp(90px, 12vw, 160px);
+    line-height: 1;
+    margin-bottom: 28px;
+  }
+
+  .word {
+    font-size: clamp(54px, 8vw, 110px);
+    font-weight: 800;
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+  }
+
+  .negative .word { color: var(--red); }
+  .positive .word { color: var(--green); }
+
+  .button-wrap {
+    margin-top: 34px;
+  }
+
+  button {
+    appearance: none;
+    border: none;
+    border-radius: 18px;
+    padding: 22px 54px;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 800;
+    background: var(--button);
+    color: white;
+    cursor: pointer;
+    min-width: 300px;
+  }
+
+  button:hover { background: var(--button-hover); }
+
+  button:focus-visible {
+    outline: 4px solid #111827;
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 720px) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      min-height: 250px;
+    }
+  }
+</style>
+</head>
+
+<body>
+<main class="game">
+  <section class="cards" aria-live="polite">
+    <div class="card negative">
+      <div class="symbol" aria-hidden="true">❌</div>
+      <div id="negativeWord" class="word">bat</div>
+    </div>
+
+    <div class="card positive">
+      <div class="symbol" aria-hidden="true">✅</div>
+      <div id="positiveWord" class="word">scooter</div>
+    </div>
+  </section>
+
+  <div class="button-wrap">
+    <button id="drawButton" type="button">🎲 LOSUJ</button>
+  </div>
+</main>
+
+<script>
+  const words = ["bat", "scooter", "teddy", "spaceship", "watch", "computer", "robot"];
+
+  const negativeWord = document.getElementById("negativeWord");
+  const positiveWord = document.getElementById("positiveWord");
+  const drawButton = document.getElementById("drawButton");
+
+  function drawTwoDifferentWords() {
+    const firstIndex = Math.floor(Math.random() * words.length);
+    let secondIndex = Math.floor(Math.random() * words.length);
+
+    while (secondIndex === firstIndex) {
+      secondIndex = Math.floor(Math.random() * words.length);
+    }
+
+    negativeWord.textContent = words[firstIndex];
+    positiveWord.textContent = words[secondIndex];
+  }
+
+  drawButton.addEventListener("click", drawTwoDifferentWords);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "Space" || event.code === "Enter") {
+      event.preventDefault();
+      drawTwoDifferentWords();
+    }
+  });
+</script>
+</body>
+</html>
