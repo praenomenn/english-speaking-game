@@ -16,12 +16,12 @@
 </section>
 <div class="buttons"><button id="drawButton">🎲 LOSUJ</button><button id="hintButton">💡 PODPOWIEDŹ</button></div>
 <section id="hint" class="hint">
-<div class="hintLine negativeHint"><span>It isn't</span><span id="negativePic" class="pic">🦇</span></div>
+<div class="hintLine negativeHint"><span>It isn't</span><span id="negativePic" class="pic">🏓</span></div>
 <div class="hintLine positiveHint"><span>It's</span><span id="positivePic" class="pic">🛴</span></div>
 </section>
 </main>
 <script>
-const items=[{w:'bat',p:'🦇'},{w:'scooter',p:'🛴'},{w:'teddy',p:'🧸'},{w:'spaceship',p:'🚀'},{w:'watch',p:'⌚'},{w:'computer',p:'💻'},{w:'robot',p:'🤖'}];
+const items=[{w:'bat',p:'🏓'},{w:'scooter',p:'🛴'},{w:'teddy',p:'🧸'},{w:'spaceship',p:'🚀'},{w:'watch',p:'⌚'},{w:'computer',p:'💻'},{w:'robot',p:'🤖'}];
 const neg=document.getElementById('negativeWord'),pos=document.getElementById('positiveWord'),negPic=document.getElementById('negativePic'),posPic=document.getElementById('positivePic'),hint=document.getElementById('hint');let a=0,b=1;
 function draw(){a=Math.floor(Math.random()*items.length);do{b=Math.floor(Math.random()*items.length)}while(b===a);neg.textContent=items[a].w;pos.textContent=items[b].w;negPic.textContent=items[a].p;posPic.textContent=items[b].p;hint.classList.remove('show')}
 document.getElementById('drawButton').onclick=draw;document.getElementById('hintButton').onclick=()=>hint.classList.toggle('show');
