@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking Game – Picture Hint</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Arial,sans-serif;background:#f5f7fb;color:#172033;display:flex;align-items:center;justify-content:center;padding:24px}.game{width:min(1200px,100%);text-align:center}.cards{display:grid;grid-template-columns:1fr 1fr;gap:28px}.card{background:#fff;border:2px solid #d8deea;border-radius:26px;padding:36px 20px;min-height:310px;display:flex;flex-direction:column;align-items:center;justify-content:center}.symbol{font-size:clamp(70px,9vw,125px);line-height:1;margin-bottom:20px}.word{font-size:clamp(50px,7vw,95px);font-weight:800}.negative .word{color:#d92d20}.positive .word{color:#16803c}.buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:30px}button{border:0;border-radius:18px;padding:20px 42px;font-size:clamp(25px,3vw,38px);font-weight:800;color:#fff;cursor:pointer;min-width:260px}#drawButton{background:#2457d6}#hintButton{background:#7b3fc6}.hint{display:none;margin-top:28px;background:#fff;border:2px solid #d8deea;border-radius:24px;padding:24px}.hint.show{display:grid;grid-template-columns:1fr 1fr;gap:20px}.hintLine{font-size:clamp(30px,4vw,52px);font-weight:700;display:flex;align-items:center;justify-content:center;gap:18px;min-height:120px}.pic{font-size:clamp(65px,8vw,105px);line-height:1}.negativeHint{color:#d92d20}.positiveHint{color:#16803c}@media(max-width:720px){.cards,.hint.show{grid-template-columns:1fr}.card{min-height:220px}}
+</style>
+</head>
+<body>
+<main class="game">
+<section class="cards">
+<div class="card negative"><div class="symbol">❌</div><div id="negativeWord" class="word">bat</div></div>
+<div class="card positive"><div class="symbol">✅</div><div id="positiveWord" class="word">scooter</div></div>
+</section>
+<div class="buttons"><button id="drawButton">🎲 LOSUJ</button><button id="hintButton">💡 PODPOWIEDŹ</button></div>
+<section id="hint" class="hint">
+<div class="hintLine negativeHint"><span>It isn't</span><span id="negativePic" class="pic">🦇</span></div>
+<div class="hintLine positiveHint"><span>It's</span><span id="positivePic" class="pic">🛴</span></div>
+</section>
+</main>
+<script>
+const items=[{w:'bat',p:'🦇'},{w:'scooter',p:'🛴'},{w:'teddy',p:'🧸'},{w:'spaceship',p:'🚀'},{w:'watch',p:'⌚'},{w:'computer',p:'💻'},{w:'robot',p:'🤖'}];
+const neg=document.getElementById('negativeWord'),pos=document.getElementById('positiveWord'),negPic=document.getElementById('negativePic'),posPic=document.getElementById('positivePic'),hint=document.getElementById('hint');let a=0,b=1;
+function draw(){a=Math.floor(Math.random()*items.length);do{b=Math.floor(Math.random()*items.length)}while(b===a);neg.textContent=items[a].w;pos.textContent=items[b].w;negPic.textContent=items[a].p;posPic.textContent=items[b].p;hint.classList.remove('show')}
+document.getElementById('drawButton').onclick=draw;document.getElementById('hintButton').onclick=()=>hint.classList.toggle('show');
+</script>
+</body>
+</html>
